@@ -57,6 +57,12 @@ app.get('/fruits', async(req, res) => {
     res.render('fruits/index.ejs', {fruits: allFruits});
 });
 
+app.get("/fruits/:fruitId", async (req, res) => {
+    const foundFruit = await Fruit.findById(req.params.fruitId);
+    res.render("fruits/show.ejs", { fruit: foundFruit });
+  });
+  
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
