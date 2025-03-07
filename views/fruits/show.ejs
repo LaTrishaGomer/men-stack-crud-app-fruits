@@ -6,9 +6,12 @@
     <title>Fruit Show Page</title>
 </head>
 <body>
-    <h1>
-        <%= fruit.name %>
-    </h1>
+    <h1><%= fruit.name %></h1>
+        <nav>
+            <li>
+                <a href="/fruits">Back to Fruits</a>
+            </li>
+        </nav>
     <% if (fruit.isReadyToEat) { %>
         <p>this fruit is ready to eat!</p>
         <% }else { %>

@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const Fruit = require('./models/fruit');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
 
 
 //initialize the express application
@@ -23,6 +25,10 @@ mongoose.connection.on('connected', () => {
 //body parser middleware: this function reads the request body
 //and decodes it into req.body so we can access form data!
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'))
+//method override reads the "_method" query param for 
+//DELETE or PUT requests
+app.use(morgan('dev'));
 
 //Root path/route "HomePage"
 app.get('/', async(req, res) => {
@@ -62,6 +68,12 @@ app.get("/fruits/:fruitId", async (req, res) => {
     res.render("fruits/show.ejs", { fruit: foundFruit });
   });
   
+  //delete route, once matched by server.js, sends a
+  //action to MongoDB to delete a docuemtn using its id to dins and delete it
+  app.delete('/fruits/:fruitId', async (req, res) => {
+    await Fruit.findByIdAndDelete(req.params.fruitId);
+    res.redirect('/fruits');
+  });
 
 app.listen(3000, () => {
   console.log('Listening on port 3000');
