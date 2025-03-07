@@ -17,9 +17,11 @@
         <% }else { %>
             <p>this fruit is not ready to eat!</p>
         <% } %>
-        <form action="/fruits/<% fruit._id %>?_method=DELETE" method="post">
-        <button type="submit">Delete <%= fruit.name %></button>
-    </form>
+        <form action="/fruits/<%=fruit._id%>?_method=DELETE" method="POST">
+            <button type="submit">Delete <%= fruit.name %></button>
+          </form>
+          <!-- add edit page link here -->
+          <a href="/fruits/<%= fruit._id %>/edit">Edit <%= fruit.name %></a>     
     </body>
 
 </html>
